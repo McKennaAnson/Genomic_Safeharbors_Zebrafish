@@ -28,17 +28,17 @@ numpy`
 
 ### Usage
 `python gsh_python.py \
-  -chro data/gsh_data/danRer11_chromL.txt \
-  -genes data/gsh_data/danRer11_gene.gtf \
-  -onco data/gsh_data/danRer11_onco.txt \
-  -enh data/gsh_data/danRer11_enh.bed \
-  -cent data/gsh_data/danRer11_cent.gtf \
-  -gap data/gsh_data/danRer11_gap.txt \
-  -lnc data/gsh_data/danRer11_lnc.bed \
-  -mi data/gsh_data/danRer11_mi.bed \
-  -t data/gsh_data/danRer11_t.gtf \
-  -rm data/gsh_data/danRer11_rm.bed \
-  -f data/gsh_data/danRer11_seq.fa`
+  -chro data/danRer11_chromL.txt \
+  -genes data/danRer11_gene.gtf \
+  -onco data/danRer11_onco.txt \
+  -enh data/danRer11_enh.bed \
+  -cent data/danRer11_cent.gtf \
+  -gap data/danRer11_gap.txt \
+  -lnc data/danRer11_lnc.bed \
+  -mi data/danRer11_mi.bed \
+  -t data/danRer11_t.gtf \
+  -rm data/danRer11_rm.bed \
+  -f data/danRer11_seq.fa`
   
 ### Flank Distances
 | Feature | Distance (bp) |
