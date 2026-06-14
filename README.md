@@ -4,6 +4,7 @@
 The method for finding genomic safeharbors computationally for *Danio rerio* (Zebrafish) follows the workflow outline in [Discovery and validation of human genomic safe harbor sites for gene and cell therapies](https://pmc.ncbi.nlm.nih.gov/articles/PMC9017210/).
 
 ### Dataset 
+All cleaned and processed data is avaliable to download from here: [danioRer_data](https://iastate.box.com/s/njar9ckjgxg75in7k08fyxxaep3geo2q)
 
 | File Name | Datatype | Assembly | Download Location | Coordinate Type | Notes |
 | --------- | -------- | -------- |------------------ | --------------- | ----- |
