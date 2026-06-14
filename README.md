@@ -55,7 +55,7 @@ numpy`
 ### Outputs
 | Filename | Description |
 | -------- | ----------- |
-| safeharbors.tsv | Genomic coordinates of safeharbors with columns `Chromosome`, `Start` and `End` |
+| safeharbors.tsv | Genomic coordinates of safeharbors with columns `Chromosome`, `Start`, `End` and `Size in BP` |
 | safeharbors_seqs.fasta | Sequences of the safeharbors |
 | safeharbors_rm.tsv | Genomic coordinates of safeharbors with RepeatMasker coordinates subtracted |
 | safeharbors_rm_seqs.fasta | Sequences of the safeharbors with RepeatMasker coordinates subtracted |
