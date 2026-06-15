@@ -29,17 +29,17 @@ numpy`
 
 ### Usage
 `python gsh_python.py \
-  -chro data/danRer11_chromL.txt \
-  -genes data/danRer11_gene.gtf \
-  -onco data/danRer11_onco.txt \
-  -enh data/danRer11_enh.bed \
-  -cent data/danRer11_cent.gtf \
-  -gap data/danRer11_gap.txt \
-  -lnc data/danRer11_lnc.bed \
-  -mi data/danRer11_mi.bed \
-  -t data/danRer11_t.gtf \
-  -rm data/danRer11_rm.bed \
-  -f data/danRer11_seq.fa`
+  -chro danRer_data/danRer11_chromL.txt \
+  -genes danRer_data/danRer11_gene.gtf \
+  -onco danRer_data/danRer11_onco.txt \
+  -enh danRer_data/danRer11_enh.bed \
+  -cent danRer_data/danRer11_cent.gtf \
+  -gap danRer_data/danRer11_gap.txt \
+  -lnc danRer_data/danRer11_lnc.bed \
+  -mi danRer_data/danRer11_mi.bed \
+  -t danRer_data/danRer11_t.gtf \
+  -rm danRer_data/danRer11_rm.bed \
+  -f danRer_data/danRer11_seq.fa`
   
 ### Flank Distances
 | Feature | Distance (bp) |
@@ -58,12 +58,15 @@ numpy`
 | -------- | ----------- |
 | safeharbors.tsv | Genomic coordinates of safeharbors with columns `Chromosome`, `Start`, `End` and `Size in BP` |
 | safeharbors_seqs.fasta | Sequences of the safeharbors |
-| safeharbors_rm.tsv | Genomic coordinates of safeharbors with RepeatMasker coordinates subtracted |
+| safeharbors_rm.tsv | Genomic coordinates of safeharbors with RepeatMasker coordinates subtracted (columns `Chromosome`, `Start`, `End` and `Size in BP`) |
 | safeharbors_rm_seqs.fasta | Sequences of the safeharbors with RepeatMasker coordinates subtracted |
 
 ## Optional BLAST 
 ### Overview
 The script `blastn.py` performs an online BLASTN search for each sequence in an input FASTA file against the NCBI nucleotide database (`nt`), restricted to zebrafish (*Danio rerio*) sequences.
+
+### Requirements
+
 
 For every query sequence, a separate text file is generated:
 
