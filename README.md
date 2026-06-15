@@ -66,7 +66,7 @@ numpy`
 The script `blastn.py` performs an online BLASTN search for each sequence in an input FASTA file against the NCBI nucleotide database (`nt`), restricted to zebrafish (*Danio rerio*) sequences.
 
 ### Requirements
-
+`biopython`
 
 For every query sequence, a separate text file is generated:
 
