@@ -57,6 +57,9 @@ The script `blastn.py` performs an online BLASTN search for each sequence in an 
 ### Requirements
 `biopython`
 
+### Usage
+`python blastn.py seqs.fasta youremail@website.com`
+
 For every query sequence, a separate text file is generated:
 
 <chr_:start-end>_blastn.txt
