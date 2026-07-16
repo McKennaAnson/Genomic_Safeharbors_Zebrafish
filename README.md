@@ -60,43 +60,5 @@ A local *Danio rerio* BLAST database is required for this code to run.
 | safeharbors_rm.tsv | Genomic coordinates of safeharbors with RepeatMasker coordinates added to regions to avoid (columns `Chromosome`, `Start`, `End` and `Size in BP`) |
 | safeharbors_rm_seqs.fasta | Sequences of the safeharbors with RepeatMasker coordinates added to regions to avoid |
 
-## Optional BLAST Script
-### Overview
-The script `blastn.py` performs an online BLASTN search for each sequence in an input FASTA file against the NCBI nucleotide database (`nt`), restricted to zebrafish (*Danio rerio*) sequences.
-
-### Requirements
-`biopython`
-
-### Usage
-`python blastn.py seqs.fasta youremail@website.com`
-
-### Output
-For every query sequence, a separate text file is generated:
-
-<chr_:start-end>_blastn.txt
-
-* chr_: chromosome number of safe harbor
-* start: start coordinate of safe harbor
-* end: end coordinate of safe harbor
-
-**File Contents**
-* Each output file will contain the top 50 BLAST hits returned by NCBI (based on alignment score), along with alignment statistics and sequence alignments.
-* Example format for each hit:
-```text
-Hit Num:
-  Title: ...
-  E-value: ...
-  Score: ...
-  Identity: ...
-  Alignment Length: ...
-  Target Start Coordinate: ...
-  Target End Coordinate: ...
-  Strand: ...
------ALIGNMENT-----
-Query:  ACTG...
-Match:  ||||...
-Sbjct:  ACTG...
-```
-
 ### Citations
 [Aznauryan et al. (2022). "Discovery and validation of human genomic safe harbor sites for gene and cell therapies." *Cell Reports Methods*.](https://pmc.ncbi.nlm.nih.gov/articles/PMC9017210/)
