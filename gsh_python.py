@@ -300,7 +300,7 @@ def add_regions_to_avoid(regions_to_avoid, more_regions_list, chromo_file, min_l
 def run_blast(gsh_file, e_value, outpath):
     print(f"{f' RUNNING LOCAL BLAST ON {gsh_file} ':=^60}")
     #run blast locally 
-    db_path = 'data/danRer11_db/danRer11'
+    db_path = 'danRer11_db/danRer11'
     subprocess.run([
         "blastn",
         "-query", gsh_file,
