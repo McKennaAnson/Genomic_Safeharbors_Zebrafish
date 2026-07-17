@@ -22,6 +22,7 @@ def parse_inputs(args_list):
     parser.add_argument('-t', help='tRNA coordinates BED')
     parser.add_argument('-rm', help='RepeatMasker coordinates')
     parser.add_argument('-f', help='primary assembly file')
+    parser.add_argument('-len', help='minmum length of genomic safeharbor')
 
 
     args = parser.parse_args(args_list)
@@ -412,7 +413,7 @@ def main():
     rm_df = process_rm(args.rm)
 
     #safe harbors with RM data removed
-    gsh_rm = add_regions_to_avoid(gsh[1], [rm_df], args.chro, 500, 'output/safeharbors_rm.tsv')
+    gsh_rm = add_regions_to_avoid(gsh[1], [rm_df], args.chro, args.len, 'output/safeharbors_rm.tsv')
 
     #safe harbors sequences with RM data removed
     extract_seqs(gsh_rm, args.f, 'output/safeharbors_rm.fasta')
@@ -424,7 +425,7 @@ def main():
     non_unique_df = find_non_unique_seqs('output/blast_gsh_rm.txt')
 
     #safe harbors with RM data and non-unique regions added to regions to avoid
-    gsh_rm_nu = add_regions_to_avoid(gsh[1], [rm_df, non_unique_df], args.chro, 500, 'output/safeharbors_rm_unique.tsv')
+    gsh_rm_nu = add_regions_to_avoid(gsh[1], [rm_df, non_unique_df], args.chro, args.len, 'output/safeharbors_rm_unique.tsv')
 
     #get sequences of unique, high information safeharbors
     extract_seqs(gsh_rm_nu, args.f, 'output/safeharbors_rm_unique.fasta')
