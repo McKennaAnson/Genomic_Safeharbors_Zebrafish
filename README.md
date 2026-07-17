@@ -57,8 +57,8 @@ A local *Danio rerio* BLAST database is required for this code to run.
 | safeharbors_seqs.fasta | Sequences of the safeharbors |
 | safeharbors_rm.tsv | Genomic coordinates of safeharbors with RepeatMasker coordinates added to regions to avoid (columns `Chromosome`, `Start`, `End`, `Length` and `LP`) |
 | safeharbors_rm_seqs.fasta | Sequences of the safeharbors with RepeatMasker coordinates added to regions to avoid |
-| safeharbors_rm_unique.tsv | Genomic coordinates of safeharbors with RepeatMasker coordinates and non-unique added to regions to avoid (columns `Chromosome`, `Start`, `End`, `Length` and `LP`) |
-| safeharbors_rm_unique.fasta | Sequences of the safeharbors with RepeatMasker and non-unique coordinates added to regions to avoid |
+| safeharbors_rm_unique.tsv | Genomic coordinates of safeharbors with RepeatMasker and non-unique region coordinates added to regions to avoid (columns `Chromosome`, `Start`, `End`, `Length` and `LP`) |
+| safeharbors_rm_unique.fasta | Sequences of the safeharbors with RepeatMasker and non-unique region coordinates added to regions to avoid |
 
 ### Citations
 [Aznauryan et al. (2022). "Discovery and validation of human genomic safe harbor sites for gene and cell therapies." *Cell Reports Methods*.](https://pmc.ncbi.nlm.nih.gov/articles/PMC9017210/)

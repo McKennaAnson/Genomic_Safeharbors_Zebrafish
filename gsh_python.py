@@ -6,6 +6,7 @@ import argparse
 import sys
 from pyfaidx import Fasta
 import subprocess
+from pathlib import Path
 
 def parse_inputs(args_list):
     parser = argparse.ArgumentParser(prog='PROG', usage='Find Danio rerio safe harbors')
@@ -212,12 +213,16 @@ def find_gsh(list_dfs, chromo_lens_df, dist_df, chromo_file):
     #reorder columns
     safe_harbors_df = safe_harbors_df[['Chromosome', 'Start', 'End', 'LP']]
 
+    #create output folder
+    output_dir = Path('output')
+    output_dir.mkdir(parents=True, exist_ok=True)
+
     #save to tsv file and add length of safeharbors
     safe_harbors_df['Length'] = safe_harbors_df['End'] - safe_harbors_df['Start']
     safe_harbors_df = safe_harbors_df[['Chromosome', 'Start', 'End', 'Length', 'LP']]
-    safe_harbors_df.to_csv('safeharbors.tsv', sep='\t', index=False)
+    safe_harbors_df.to_csv('output/safeharbors.tsv', sep='\t', index=False)
 
-    print(f"{f' DONE: Found {safe_harbors_df.shape[0]} safeharbors - Saved to safeharbors.tsv ':=^60}")
+    print(f"{f' DONE: Found {safe_harbors_df.shape[0]} safeharbor regions - Saved to safeharbors.tsv ':=^60}")
     
     return safe_harbors_df, regions_to_avoid_df
 
@@ -263,7 +268,7 @@ def process_rm(rm_file):
     return rm
 
 #-----ADD REGIONS TO AVOID---------
-def add_regions_to_avoid(regions_to_avoid, more_regions_list, chromo_file, min_len):
+def add_regions_to_avoid(regions_to_avoid, more_regions_list, chromo_file, min_len, filename):
 
     print(f"{' ADDING ADDITIONAL REGIONS TO AVOID ':=^60}")
 
@@ -290,9 +295,9 @@ def add_regions_to_avoid(regions_to_avoid, more_regions_list, chromo_file, min_l
     #add LP number column
     gsh_df['LP'] = range(1, len(gsh_df) + 1)
 
-    gsh_df.to_csv('safe_harbors_rm.tsv', sep='\t', index=False)
+    gsh_df.to_csv(filename, sep='\t', index=False)
 
-    print(f"{' DONE ':=^60}")
+    print(f"{f' DONE: Found {gsh_df.shape[0]} safeharbor regions - Saved to {filename} ':=^60}")
 
     return gsh_df
 
@@ -300,7 +305,7 @@ def add_regions_to_avoid(regions_to_avoid, more_regions_list, chromo_file, min_l
 def run_blast(gsh_file, e_value, outpath):
     print(f"{f' RUNNING LOCAL BLAST ON {gsh_file} ':=^60}")
     #run blast locally 
-    db_path = 'danRer11_db/danRer11'
+    db_path = 'danRer11_db/danRer11' #hardcoded path for BLAST database
     subprocess.run([
         "blastn",
         "-query", gsh_file,
@@ -401,28 +406,28 @@ def main():
     gsh = find_gsh([genes, enhancers, oncogenes, trnas, mirnas, lncrnas, centromeres, gaps], chromo_lens, dist_df, args.chro)
 
     #sequences
-    extract_seqs(gsh[0], args.f, 'safeharbors.fasta')
+    extract_seqs(gsh[0], args.f, 'output/safeharbors.fasta')
 
     #RM regions
     rm_df = process_rm(args.rm)
 
     #safe harbors with RM data removed
-    gsh_rm = add_regions_to_avoid(gsh[1], [rm_df], args.chro, 500)
+    gsh_rm = add_regions_to_avoid(gsh[1], [rm_df], args.chro, 500, 'output/safeharbors_rm.tsv')
 
     #safe harbors sequences with RM data removed
-    extract_seqs(gsh_rm, args.f, 'safeharbors_rm.fasta')
+    extract_seqs(gsh_rm, args.f, 'output/safeharbors_rm.fasta')
 
     #Blast RM safe harbors
-    run_blast('safeharbors_rm.fasta', '1e-3', 'blast_gsh_rm.txt')
+    run_blast('output/safeharbors_rm.fasta', '1e-3', 'output/blast_gsh_rm.txt')
 
     #Find non-unique regions
-    non_unique_df = find_non_unique_seqs('blast_gsh_rm.txt')
+    non_unique_df = find_non_unique_seqs('output/blast_gsh_rm.txt')
 
     #safe harbors with RM data and non-unique regions added to regions to avoid
-    gsh_rm_nu = add_regions_to_avoid(gsh[1], [rm_df, non_unique_df], args.chro, 500)
+    gsh_rm_nu = add_regions_to_avoid(gsh[1], [rm_df, non_unique_df], args.chro, 500, 'output/safeharbors_rm_unique.tsv')
 
     #get sequences of unique, high information safeharbors
-    extract_seqs(gsh_rm_nu, args.f, 'unique_safeharbors.fasta')
+    extract_seqs(gsh_rm_nu, args.f, 'output/safeharbors_rm_unique.fasta')
 
 if __name__ == "__main__":
 	main()
