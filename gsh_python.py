@@ -22,7 +22,7 @@ def parse_inputs(args_list):
     parser.add_argument('-t', help='tRNA coordinates BED')
     parser.add_argument('-rm', help='RepeatMasker coordinates')
     parser.add_argument('-f', help='primary assembly file')
-    parser.add_argument('-len', help='minmum length of genomic safeharbor')
+    parser.add_argument('-len', type=int, help='minmum length of genomic safeharbor')
 
 
     args = parser.parse_args(args_list)
