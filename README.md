@@ -1,9 +1,25 @@
 # Genomic-Safeharbors-Danio-Rerio-Zebrafish
 
 ### Overview
-The method for finding genomic safeharbors (GSH) computationally for *Danio rerio* (Zebrafish) follows the workflow outline in [Discovery and validation of human genomic safe harbor sites for gene and cell therapies](https://pmc.ncbi.nlm.nih.gov/articles/PMC9017210/). Two additional steps have been added to this pipeline. Once the GSH canadiates have been computationally generated, low complexity regions and non-unique sequences are excluded.
-* **Low complexity regions** are excluded by adding [RepeatMasker](https://www.repeatmasker.org/) regions to the regions to avoid. RepeatMasker data for *Danio rerio* was downloaded from [UCSC](https://genome.ucsc.edu/cgi-bin/hgTables?db=danRer11&hgta_group=varRep&hgta_track=rmsk&hgta_table=rmsk) (see Dataset table below).
-* **Non-unique sequences** were excluded by running a local BLAST on all GSH canadiate sequences and adding the regions of said canadiates that returned a BLAST hit (not including self hits) to the regions to avoid. This step is meant to narrow down the GSH canadiates to only regions with unique sequences, which allows for precise targeting. 
+Fintegrate is a software to locate candidate genomic safe harbors in zebrafish, adapted from a similar study of human genomic safe harbors (Aznauryan, 2022).
+
+* **Inputs:** 
+   * Protein-coding genes (gene expression)
+   * Oncogenes (insertional oncogenesis)
+   * Enhancers (enhancer-gene interactions)
+   * Centromeres (cell division)
+   * tRNAs, lncRNAs, and miRNAs (gene expression and regulation, and cell development)
+   * Low-complexity regions 
+   * Duplicate DNA sequences (precise targeting for integration)
+   * Whole genome sequence for zebrafish
+* **Outputs**
+   * `safeharbors.tsv`: genomic coordinates of safeharbors 
+   * `safeharbors_seqs.fasta`: sequences of the safeharbors
+   * `safeharbors_rm.tsv`: genomic coordinates of safeharbors with low-complexity regions excluded
+   * `safeharbors_rm_seqs.fasta`: sequences of the safeharbors with low-complexity regions excluded
+   * `safeharbors_rm_unique.tsv`: genomic coordinates of safeharbors with low-complexity regions and repeat DNA sequences excluded 
+   * `safeharbors_rm_unique.fasta`: sequences of safeharbors with low-complexity regions and repeat DNA sequences excluded 
+
 ### Dataset 
 All cleaned and processed data is avaliable to download from here: [danioRer_data](https://iastate.box.com/s/njar9ckjgxg75in7k08fyxxaep3geo2q) 
 
@@ -36,7 +52,7 @@ A local *Danio rerio* BLAST database is required for this code to run.
    
 ### Usage
 * The folder `danRer_data` (downloaded from the box [danioRer_data](https://iastate.box.com/s/njar9ckjgxg75in7k08fyxxaep3geo2q)) needs to be in the same folder as gsh_python.py
-> `python gsh_python.py -chro danRer_data/danRer11_chromL.txt -genes danRer_data/danRer11_gene.gtf -onco danRer_data/danRer11_onco.txt -enh danRer_data/danRer11_enh.bed -cent danRer_data/danRer11_cent.gtf -gap danRer_data/danRer11_gap.txt -lnc danRer_data/danRer11_lnc.bed -mi danRer_data/danRer11_mi.bed -t danRer_data/danRer11_t.gtf -rm danRer_data/danRer11_rm.bed -f danRer_data/danRer11_seq.fa -len 500`
+> `python gsh_python.py -chro danRer_data/danRer11_chromL.txt -genes danRer_data/danRer11_gene.gtf -onco danRer_data/danRer11_onco.txt -enh danRer_data/danRer11_enh.bed -cent danRer_data/danRer11_cent.gtf -gap danRer_data/danRer11_gap.txt -lnc danRer_data/danRer11_lnc.bed -mi danRer_data/danRer11_mi.bed -t danRer_data/danRer11_t.gtf -rm danRer_data/danRer11_rm.bed -f danRer_data/danRer11_seq.fa -len 50`
   
 ### Flank Distances
 | Feature | Distance (bp) |
@@ -50,15 +66,5 @@ A local *Danio rerio* BLAST database is required for this code to run.
 | Centromere | 300,000 |
 | Gap | 300,000 |
 
-### Outputs
-| Filename | Description |
-| -------- | ----------- |
-| safeharbors.tsv | Genomic coordinates of safeharbors with columns `Chromosome`, `Start`, `End`, `Length` and `LP` |
-| safeharbors_seqs.fasta | Sequences of the safeharbors |
-| safeharbors_rm.tsv | Genomic coordinates of safeharbors with RepeatMasker coordinates added to regions to avoid (columns `Chromosome`, `Start`, `End`, `Length` and `LP`) |
-| safeharbors_rm_seqs.fasta | Sequences of the safeharbors with RepeatMasker coordinates added to regions to avoid |
-| safeharbors_rm_unique.tsv | Genomic coordinates of safeharbors with RepeatMasker and non-unique region coordinates added to regions to avoid (columns `Chromosome`, `Start`, `End`, `Length` and `LP`) |
-| safeharbors_rm_unique.fasta | Sequences of the safeharbors with RepeatMasker and non-unique region coordinates added to regions to avoid |
-
-### Citations
+### Referemces
 [Aznauryan et al. (2022). "Discovery and validation of human genomic safe harbor sites for gene and cell therapies." *Cell Reports Methods*.](https://pmc.ncbi.nlm.nih.gov/articles/PMC9017210/)
