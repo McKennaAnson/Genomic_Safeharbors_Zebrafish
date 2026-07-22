@@ -1,4 +1,4 @@
-# Genomic-Safeharbors-Danio-Rerio-Zebrafish
+# Fintegrate: Genomic Safe Harbor Sites in Zebrafish
 
 ### Overview
 The method for finding genomic safeharbors (GSH) computationally for *Danio rerio* (Zebrafish) follows the workflow outline in [Discovery and validation of human genomic safe harbor sites for gene and cell therapies](https://pmc.ncbi.nlm.nih.gov/articles/PMC9017210/). Two additional steps have been added to this pipeline. Once the GSH canadiates have been computationally generated, low complexity regions and non-unique sequences are excluded.
